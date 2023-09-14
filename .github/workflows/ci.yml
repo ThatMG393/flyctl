@@ -16,10 +16,14 @@ jobs:
         goos: [linux]
         goarch: [arm, amd64, arm64]  
     steps:
-    - uses: actions/checkout@v3
-    - uses: wangyoucao577/go-release-action@master
-      with:
-        github_token: ${{ secrets.RELEASE_TOKEN }}
-        goos: ${{ matrix.goos }}
-        goarch: ${{ matrix.goarch }}
-        release-name: "build-debug"
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Install Go and Build
+        run: sudo apt update && sudo apt install golang -y && GOOS=${matrix.goos} GOARCH=${matrix.goarch} go build
+
+      - name: Upload flyctl for preflight
+        uses: actions/upload-artifact@v3
+        with:
+          name: flyctl
+          path: dist/default_linux_amd64_v1/flyctl

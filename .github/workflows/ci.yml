@@ -9,13 +9,7 @@ permissions:
 jobs:
   releases-matrix:
     name: Release Go Binary
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
-        goos: [linux]
-        goarch: [arm, amd64, arm64]
-        
+    runs-on: ubuntu-latest 
     steps:
       - uses: actions/checkout@v3
         with:
@@ -32,4 +26,4 @@ jobs:
           version: latest
           args: release --config .goreleaser.dev.yml --rm-dist
         env:
-          GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}

@@ -22,5 +22,5 @@ builds:
  
 release:
   github:
-    owner: superfly
-    name: flyctl-dev
+    owner: ThatMG393
+    name: flyctl

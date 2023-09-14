@@ -3,21 +3,22 @@ on:
   push:
   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      
-      - name: Install Go
-        run: sudo apt update && sudo apt install golang -y
-      
-      - name: Build flyctl
-        run: CGO_ENABLED="1" GOOS=linux GOARCH=arm go build
+permissions:
+  contents: write
 
-      - name: Upload built binary
-        uses: actions/upload-artifact@master
-        with:
-          name: flyctl-debug
-          path: bin/*
+jobs:
+  releases-matrix:
+    name: Release Go Binary
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        goos: [linux]
+        goarch: [arm, amd64, arm64]  
+    steps:
+    - uses: actions/checkout@v3
+    - uses: wangyoucao577/go-release-action@master
+      with:
+        github_token: ${{ secrets.RELEASE_TOKEN }}
+        goos: ${{ matrix.goos }}
+        goarch: ${{ matrix.goarch }}

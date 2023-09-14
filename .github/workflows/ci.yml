@@ -20,6 +20,9 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
 
+      - name: "Place wintun.dll"
+        run: cp deps/wintun/bin/amd64/wintun.dll ./
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:

@@ -8,8 +8,8 @@ permissions:
 
 jobs:
   releases-matrix:
-    name: Release Go Binary
-    runs-on: ubuntu-latest 
+    name: Build & Release
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -24,6 +24,6 @@ jobs:
         uses: goreleaser/goreleaser-action@v5
         with:
           version: latest
-          args: release --config .goreleaser.dev.yml --rm-dist
+          args: release --config .goreleaser.dev.yml --clean
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}

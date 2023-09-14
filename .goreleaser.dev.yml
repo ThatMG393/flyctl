@@ -10,10 +10,11 @@ builds:
     goos:
       - darwin
       - linux
+    goarch:
+      - arm
+      - 386
     ignore:
       - goos: darwin
-        goarch: 386
-      - goos: linux
         goarch: 386
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.environment=production

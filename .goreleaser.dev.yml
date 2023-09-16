@@ -8,13 +8,15 @@ builds:
     env:
       - CGO_ENABLED=0
     goos:
-      - darwin
       - linux
+      - android
     goarch:
       - arm
       - 386
     ignore:
-      - goos: darwin
+      - goos: linux
+        goarch: arm
+      - goos: android
         goarch: 386
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.environment=production

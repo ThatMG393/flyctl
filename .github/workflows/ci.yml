@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  releases-matrix:
+  releases:
     name: Build & Release
     runs-on: ubuntu-latest
     steps:
